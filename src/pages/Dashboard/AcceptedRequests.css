@@ -1,0 +1,76 @@
+.offers_wrapper_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: 1rem;
+    overflow-y: auto;
+    scrollbar-width: none;
+    align-items: center;
+}
+.accepted_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.accepted_card_conatainer{
+    background-color: #fff;
+    display: flex;
+    gap: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 1rem;
+    border-radius: .5rem;
+}
+.accepted_card_conatainer:hover{
+ transform: translateY(-4px);
+}
+.helper_profile{
+    flex: 0.3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+}
+
+.helper_profile img{
+    width: 5rem;
+    height: 5rem;
+    background-color: #f4f2ee;
+    border-radius: 100%;
+    object-fit: fill;
+}
+
+.helper_profile button{
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: .5rem;
+    background-color: #dfd4d4;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+.helper_profile button:hover{
+    background-color: #a9a7a7;
+}
+.requests_details{
+    flex: .6;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+
+.action_buttons{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.action_buttons button{
+    padding: 0.5rem 2rem;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+}

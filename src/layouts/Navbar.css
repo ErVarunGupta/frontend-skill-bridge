@@ -1,0 +1,97 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    height: 4rem;
+    padding-inline: 3rem;
+    border-bottom: 1px solid silver;
+    /* box-shadow: 1px 4px 10px 3px #e0e1e1; */
+    position: relative;
+}
+
+.left_navbar{
+    display: flex;
+    gap: 1rem;
+}
+
+.left_navbar .skill_bridge_icon .skill_bridge_link{
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.right_navbar{
+    display: flex;
+    gap: 1rem;
+}
+
+.right_navbar p{
+    display: flex;
+    max-width: 10rem;
+    align-items: center;
+    text-align: center;
+}
+
+.right_navbar p .nav_links{
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: .5s;
+}
+
+.right_navbar p .nav_links:hover{
+    color: blue;
+}
+
+.profile_icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(200, 216, 231);
+    height: 3rem;
+    width: 3rem;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.profile_icon i{
+    font-size: 1.3rem;
+}
+
+/* profileCard */
+.profile_Card{
+    top: 4.5rem;
+    right: 3rem;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(197, 235, 247);
+    width: 12rem;
+    padding: 1rem;
+    border-radius: .5rem;
+    gap: 1.4rem;
+    align-items: center;
+}
+
+.profile_Card p{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    background-color: transparent;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: .2s;
+    gap: .5rem;
+}
+
+.profile_Card p:hover{
+    transform: translateY(-1px);
+}
+
+
+.nav_links.active{
+    border-bottom: 2px solid blue;
+}
+
+.deactive{
+    border: none;
+}
