@@ -1,5 +1,5 @@
 
-const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080/api";
+const API_URL = import.meta.env.VITE_BACKEND_URL ;
 
 export const updateRating = async({helperId, feedback}) =>{
     try {

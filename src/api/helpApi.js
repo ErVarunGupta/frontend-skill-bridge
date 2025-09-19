@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { MyContext } from "../MyContext";
 import { jwtDecode } from "jwt-decode";
 
-const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080/api";
+const API_URL = import.meta.env.VITE_BACKEND_URL ;
 
 export const usePendingRequests = () => {
   const { pendingRequests, setPendingRequests } = useContext(MyContext);

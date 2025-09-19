@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { MyContext } from "../MyContext";
 
-const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080/api";
+const API_URL = import.meta.env.VITE_BACKEND_URL ;
 
 export const getUserProfile = (userId) => {
   const { userProfile, setUserProfile } = useContext(MyContext);
