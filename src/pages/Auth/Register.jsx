@@ -3,7 +3,7 @@ import "./auth.styles.css";
 import { Link, useNavigate } from "react-router-dom";
 import { MyContext } from "../../MyContext";
 
-const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080/api";
+const API_URL = import.meta.env.VITE_BACKEND_URL ;
 
 function Register() {
     const navigate = useNavigate()
