@@ -123,11 +123,11 @@ export const useMyAcceptedOffers = () => {
       });
 
       const result = await response.json();
-      // console.log(result);
+      console.log(result);
 
       const { success, message } = result;
       if (success) {
-        setAcceptedOffers(result.myOffers);
+        setAcceptedOffers(result.myOffers || []);
       }
     } catch (error) {
       console.log("Error during fetching accepted offers: ", error.message);
