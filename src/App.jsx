@@ -23,6 +23,7 @@ function App() {
   const [pendingRequests, setPendingRequests] = useState([]);
   const [pendingRequest, setPendingRequest] = useState(null);
   const [myRequests, setMyRequests] = useState([]);
+   const [filterRequests, setFilterRequests] = useState([]);
   const [myRequest, setMyRequest] = useState(null);
   const [myOffer, setMyOffer] = useState(null);
   const [acceptedRequests, setAcceptedRequests] = useState([]);
@@ -51,6 +52,7 @@ function App() {
     setMyRequests,
     myRequest,
     setMyRequest,
+    filterRequests, setFilterRequests,
     myOffer, setMyOffer,
     title,
     setTitle,

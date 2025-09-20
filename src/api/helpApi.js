@@ -21,13 +21,11 @@ export const usePendingRequests = () => {
       });
 
       const result = await response.json();
-      // console.log(result.requests);
+      // console.log(result);
 
-      let offers = result.requests;
-      offers = offers.filter((offer) => offer.userId._id !== userId);
-
-      const { success, message } = result;
+      const { success, message, requests } = result;
       if (success) {
+        const offers = requests.filter((offer) => offer.userId._id !== userId);
         setPendingRequests(offers);
       }
     } catch (error) {

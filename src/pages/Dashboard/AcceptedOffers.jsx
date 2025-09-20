@@ -82,6 +82,14 @@ function AcceptedOffers() {
                       </p>
                       <div className="action_buttons">
                         <button
+                          style={{ background: "#6c757d", color: "#fff" }}
+                          onClick={() => {
+                            navigate(`/user/chat/${request?._id}`);
+                          }}
+                        >
+                          Chat
+                        </button>
+                        <button
                           onClick={() => declineOffer(request._id)}
                           style={{ background: "red", color: "#fff" }}
                         >

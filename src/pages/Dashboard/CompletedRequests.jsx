@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "../../MyContext";
-import { declineOffer,  useCompletedRequests } from "../../api/helpApi";
+import { declineOffer, useCompletedRequests } from "../../api/helpApi";
 import "./AcceptedRequests.css";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -9,7 +9,7 @@ function CompletedRequests() {
   const navigate = useNavigate();
 
   const { completedRequests } = useCompletedRequests();
-//   console.log(completedRequests);
+  //   console.log(completedRequests);
 
   const userId = jwtDecode(localStorage.getItem("token")).id;
 
@@ -89,7 +89,19 @@ function CompletedRequests() {
                         {request.scheduledTime.Time}
                       </span>
                     </p>
-                    <p>Status: <span style={{color: "green"}}>Completed</span></p>
+                    <p>
+                      Status: <span style={{ color: "green" }}>Completed</span>
+                    </p>
+                    <div className="action_buttons">
+                      <button
+                        style={{ background: "#6c757d", color: "#fff" }}
+                        onClick={() => {
+                          navigate(`/user/chat/${request?._id}`);
+                        }}
+                      >
+                        Chat
+                      </button>
+                    </div>
                   </div>
                 </div>
               );

@@ -82,6 +82,14 @@ function AcceptedRequests() {
                     </p>
                     <div className="action_buttons">
                       <button
+                        style={{ background: "#6c757d", color: "#fff" }}
+                        onClick={() => {
+                          navigate(`/user/chat/${request?._id}`);
+                        }}
+                      >
+                        Chat
+                      </button>
+                      <button
                         onClick={(e) =>
                           handleAckAccept(request._id, "accepted")
                         }

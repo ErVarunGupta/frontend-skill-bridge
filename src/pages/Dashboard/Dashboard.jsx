@@ -30,13 +30,15 @@ function Dashboard() {
     pendingRequest,
     showDateTime,
     dateTimeObj,
+    filterRequests, setFilterRequests
   } = useContext(MyContext);
+
 
   const decoded = jwtDecode(localStorage.getItem('token'));
 
   const {userProfile} = getUserProfile(decoded.id);
   const { pendingRequests } = usePendingRequests();
-  const { myRequests } = useMyRequests();
+  const { myRequests: initialRequests } = useMyRequests();
 
 
 
@@ -45,8 +47,10 @@ function Dashboard() {
   }, [pendingRequests]);
 
   useEffect(() => {
-    setMyRequests(myRequests);
-  }, [myRequests]);
+    if(initialRequests && filterRequests.length === 0){
+      setFilterRequests(initialRequests);
+    }
+  }, [initialRequests, filterRequests, setFilterRequests]);
 
   return (
     <>
@@ -61,12 +65,12 @@ function Dashboard() {
           </div>
           <div className="ratings">
             <p>Accepted Requests: {userProfile?.profile?.totalReviews}</p>
-            <p>Ratings: {userProfile?.profile?.averageRating}</p>
+            <p>Ratings: {userProfile?.profile?.averageRating? (userProfile?.profile?.averageRating).toFixed(2): "0.00"}</p>
           </div>
           <div className="my_requests">
             <h3>My Requests</h3>
             <ul>
-              {myRequests?.map((request) => (
+              {filterRequests?.map((request) => (
                 <li key={request?._id}>
                   <p>{request?.title}</p>
                   <span>
@@ -128,13 +132,24 @@ function Dashboard() {
 }
 
 const RequestCard = () => {
-  const { setShowRequestCard, myRequest } = useContext(MyContext);
+  const { setShowRequestCard, myRequest,filterRequests, setFilterRequests } = useContext(MyContext);
 
   const fillColor = () => {
     if (myRequest?.status === "accepted") return "green";
     else if (myRequest?.status === "pending") return "orange";
+    else if (myRequest?.status === "completed") return "green";
     else return "red";
   };
+
+  const filterMyReqeust = (requestId)=>{
+    const updatedRequests = filterRequests.filter((request)=>(
+      request._id !== requestId
+    ))
+    setFilterRequests(updatedRequests);
+    setShowRequestCard(false);
+  }
+
+  
   return (
     <>
       <div className="card_container" style={{}}>
@@ -150,7 +165,8 @@ const RequestCard = () => {
             {myRequest?.status}
           </span>
         </p>
-        <button onClick={() => deleteRequest(myRequest._id)}>Remove</button>
+        <button onClick={()=>filterMyReqeust(myRequest._id)}>Remove</button>
+        
       </div>
     </>
   );
