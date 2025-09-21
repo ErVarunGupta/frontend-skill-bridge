@@ -34,6 +34,7 @@ function Register() {
       if (success) {
         alert("Registered successfully!")
         localStorage.setItem('token',token)
+         localStorage.setItem('profilePicture', data.user.profilePicture);
         // localStorage.setItem('username',username)
         setTimeout(()=>{
             navigate("/dashboard")

@@ -6,6 +6,8 @@
     border-bottom: 1px solid silver;
     /* box-shadow: 1px 4px 10px 3px #e0e1e1; */
     position: relative;
+    position: fixed;
+    width: 100%;
 }
 
 .left_navbar{
@@ -45,15 +47,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(200, 216, 231);
+    background-color: transparent;
     height: 3rem;
     width: 3rem;
     border-radius: 100%;
     cursor: pointer;
 }
 
-.profile_icon i{
-    font-size: 1.3rem;
+.profile_icon img{
+    width: 85%;
+    height: 85%;
+    border-radius: 100%;
 }
 
 /* profileCard */

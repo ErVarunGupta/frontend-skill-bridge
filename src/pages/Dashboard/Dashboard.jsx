@@ -7,12 +7,13 @@ import {  getUserProfile } from "../../api/authApi";
 import {
   acceptRequest,
   declineOffer,
-  deleteRequest,
+  deleteRequestById,
   useMyRequests,
   usePendingRequests,
 } from "../../api/helpApi";
 import { Link, Outlet} from "react-router-dom";
 import CalendarInput from "./ScheduleForm";
+import Footer from "../../layouts/Footer";
 
 
 function Dashboard() {
@@ -102,6 +103,8 @@ function Dashboard() {
               }}>Submit</button>
             </div>
           </div>}
+
+          
         </div>
 
         <div className="right_dashboard_container ">
@@ -127,6 +130,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }
@@ -149,6 +153,12 @@ const RequestCard = () => {
     setShowRequestCard(false);
   }
 
+  const deleteRequest = (requestId) =>{
+    const updatedRequests = deleteRequestById(requestId);
+    setFilterRequests(updatedRequests);
+    setShowRequestCard(false);
+  }
+
   
   return (
     <>
@@ -165,7 +175,11 @@ const RequestCard = () => {
             {myRequest?.status}
           </span>
         </p>
-        <button onClick={()=>filterMyReqeust(myRequest._id)}>Remove</button>
+        <button onClick={()=>{
+          myRequest.status === "completed" 
+          ? filterMyReqeust(myRequest._id)
+          : deleteRequest(myRequest._id)
+        }}>Remove</button>
         
       </div>
     </>
@@ -183,7 +197,7 @@ const OfferCard = () => {
   return (
     <>
       <div className="offer_card_container">
-        <div className="cross" onClick={() => setShowOfferCard(false)}>
+        <div className="cross" onClick={() => {setShowOfferCard(false); setShowDateTime(false)}}>
           <i className="fa-solid fa-xmark"></i>
         </div>
         <img src="/images/profile.png" alt="" />

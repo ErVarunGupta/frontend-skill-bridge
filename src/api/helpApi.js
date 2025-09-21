@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MyContext } from "../MyContext";
 import { jwtDecode } from "jwt-decode";
 
@@ -35,7 +35,7 @@ export const usePendingRequests = () => {
 
   useEffect(() => {
     fetchRequests();
-  }, []);
+  }, [setPendingRequests]);
 
   return { pendingRequests };
 };
@@ -68,13 +68,14 @@ export const useMyRequests = () => {
 
   useEffect(() => {
     fetchRequests();
-  }, []);
+  }, [setMyRequests]);
 
   return { myRequests };
 };
 
 export const useMyAcceptedReqeusts = () => {
   const { acceptedRequests, setAcceptedRequests } = useContext(MyContext);
+  const [loading, setLoading] = useState(true)
   const fetchRequests = async () => {
     try {
       const url = `${API_URL}/get_my_accepted_requests`;
@@ -92,22 +93,26 @@ export const useMyAcceptedReqeusts = () => {
 
       const { success, message } = result;
       if (success) {
-        setAcceptedRequests(result.myRequests);
+        setAcceptedRequests(result.myRequests || []);
       }
     } catch (error) {
       console.log("Error during fetching accepted requests: ", error.message);
+      setAcceptedRequests([])
+    }finally{
+      setLoading(false)
     }
   };
 
   useEffect(() => {
     fetchRequests();
-  }, []);
+  }, [setAcceptedRequests]);
 
-  return { acceptedRequests };
+  return { acceptedRequests, loading };
 };
 
 export const useMyAcceptedOffers = () => {
   const { acceptedOffers, setAcceptedOffers } = useContext(MyContext);
+  const [loading, setLoading] = useState(true)
   const fetchOffers = async () => {
     try {
       const url = `${API_URL}/get_my_accepted_offers`;
@@ -129,6 +134,9 @@ export const useMyAcceptedOffers = () => {
       }
     } catch (error) {
       console.log("Error during fetching accepted offers: ", error.message);
+      setAcceptedOffers([])
+    } finally{
+      setLoading(false)
     }
   };
 
@@ -136,11 +144,12 @@ export const useMyAcceptedOffers = () => {
     fetchOffers();
   }, []);
 
-  return { acceptedOffers };
+  return { acceptedOffers, loading };
 };
 
 export const useMyUpcomingSession = () => {
   const { upcomingSessions, setUpcomingSessions } = useContext(MyContext);
+  const [loading, setLoading] = useState(true)
   const fetchSessions = async () => {
     try {
       const url = `${API_URL}/get_my_upcoming_session`;
@@ -158,18 +167,66 @@ export const useMyUpcomingSession = () => {
 
       const { success, message } = result;
       if (success) {
-        setUpcomingSessions(result.sessions);
+        setUpcomingSessions(result.sessions || []);
       }
     } catch (error) {
       console.log("Error during fetching upcoming sessions: ", error.message);
+      setUpcomingSessions([]);
+    } finally{
+      setLoading(false)
     }
   };
 
   useEffect(() => {
     fetchSessions();
-  }, []);
+  }, [setUpcomingSessions]);
 
-  return { upcomingSessions };
+  return { upcomingSessions, loading };
+};
+
+export const useCompletedRequests = () => {
+  const { completedRequests, setCompletedRequests } = useContext(MyContext);
+  const [loading, setLoading] = useState(true)
+  const userId = jwtDecode(localStorage.getItem("token")).id;
+  const fetchRequests = async () => {
+    try {
+      const url = `${API_URL}/get_completed_requests`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+
+      const result = await response.json();
+      // console.log(result);
+
+      const { success, message } = result;
+      if (success) {
+      
+        result.completedRequests = result.completedRequests.filter(
+          (request) =>
+            request.userId?._id?.toString() === userId ||
+            request.helperId?._id?.toString() === userId
+        );
+
+        setCompletedRequests(result.completedRequests || []);
+      }
+    } catch (error) {
+      console.log("Error during fetching upcoming sessions: ", error.message);
+      setCompletedRequests([])
+    }finally{
+      setLoading(false)
+    }
+  };
+
+  useEffect(() => {
+    fetchRequests();
+  }, [setCompletedRequests]);
+
+  return { completedRequests, loading };
 };
 
 export const getRequestById = async ({ requestId }) => {
@@ -193,7 +250,7 @@ export const getRequestById = async ({ requestId }) => {
 
 export const acceptRequest = async (pendingRequestId, dateTimeObj) => {
   try {
-    console.log(pendingRequestId);
+    // console.log(pendingRequestId);
     const url = `${API_URL}/accept_request/${pendingRequestId}`;
 
     const response = await fetch(url, {
@@ -251,7 +308,7 @@ export const declineOffer = async (requestId) => {
   }
 };
 
-export const deleteRequest = async (requestId) => {
+export const deleteRequestById = async (requestId) => {
   try {
     const url = `${API_URL}/delete_request/${requestId}`;
 
@@ -269,6 +326,7 @@ export const deleteRequest = async (requestId) => {
     const { success, message } = result;
     if (success) {
       alert("Request deleted successfull!");
+      // setMyRequests(prev => myRequests.filter(r => r._id !== requestId));
       window.location.reload();
     } else {
       alert(message);
@@ -323,49 +381,10 @@ export const completeReqeust = async (requestId) => {
     });
 
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
   } catch (error) {
     console.log("Error during completing request : ", error.message);
   }
 };
 
-export const useCompletedRequests = () => {
-  const { completedRequests, setCompletedRequests } = useContext(MyContext);
-  const userId = jwtDecode(localStorage.getItem("token")).id;
-  const fetchRequests = async () => {
-    try {
-      const url = `${API_URL}/get_completed_requests`;
 
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      });
-
-      const result = await response.json();
-      // console.log(result);
-
-      const { success, message } = result;
-      if (success) {
-      
-        result.completedRequests = result.completedRequests.filter(
-          (request) =>
-            request.userId?._id?.toString() === userId ||
-            request.helperId?._id?.toString() === userId
-        );
-
-        setCompletedRequests(result.completedRequests || []);
-      }
-    } catch (error) {
-      console.log("Error during fetching upcoming sessions: ", error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchRequests();
-  }, []);
-
-  return { completedRequests };
-};

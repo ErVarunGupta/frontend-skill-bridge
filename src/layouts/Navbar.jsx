@@ -12,7 +12,7 @@ function Navbar() {
     <div className="navbar">
       <div className="left_navbar">
         <div className="skill_bridge_icon">
-          <NavLink to="/dashboard/home" className="skill_bridge_link"
+          <NavLink to="/dashboard" className="skill_bridge_link"
           >
             Skill Bridge
           </NavLink>
@@ -20,8 +20,14 @@ function Navbar() {
       </div>
       <div className="right_navbar">
         <p>
-          <NavLink to="/dashboard/home" className={({isActive}) => isActive? "nav_links active": "nav_links deactive"}>
+          <NavLink to="/dashboard" end className={({isActive}) => isActive? "nav_links active": "nav_links deactive"}>
             Home
+          </NavLink>
+        </p>
+        <hr />
+        <p>
+          <NavLink to="/dashboard/post" className={({isActive}) => isActive? "nav_links active": "nav_links deactive"}>
+            Post Request
           </NavLink>
         </p>
         <hr />
@@ -53,7 +59,8 @@ function Navbar() {
           className="profile_icon"
           onClick={() => setShowProfile(!showProfile)}
         >
-          <i className="fa-solid fa-user"></i>
+          {/* <i className="fa-solid fa-user"></i> */}
+          <img src={localStorage.getItem('profilePicture')} alt="" />
         </div>
       </div>
       {showProfile && <ProfileCard />}

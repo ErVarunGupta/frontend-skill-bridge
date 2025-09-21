@@ -16,6 +16,7 @@ import Chat from "./components/ChatBox";
 import VideoCall from "./components/VideoCall";
 import FeedbackForm from "./pages/FeedbackForm/FeedbackForm";
 import CompletedRequests from "./pages/Dashboard/CompletedRequests";
+import Home from "./pages/Dashboard/Home";
 
 function App() {
   const [showRequestCard, setShowRequestCard] = useState(false);
@@ -23,7 +24,7 @@ function App() {
   const [pendingRequests, setPendingRequests] = useState([]);
   const [pendingRequest, setPendingRequest] = useState(null);
   const [myRequests, setMyRequests] = useState([]);
-   const [filterRequests, setFilterRequests] = useState([]);
+  const [filterRequests, setFilterRequests] = useState([]);
   const [myRequest, setMyRequest] = useState(null);
   const [myOffer, setMyOffer] = useState(null);
   const [acceptedRequests, setAcceptedRequests] = useState([]);
@@ -36,14 +37,17 @@ function App() {
   const [showDateTime, setShowDateTime] = useState(false);
   const [dateTimeObj, setDateTimeObj] = useState(null);
   const [user, setUser] = useState(null);
+  const [users, setUsers] = useState([]);
 
   const providerValues = {
     showRequestCard,
     setShowRequestCard,
-    showOfferCard, setShowOfferCard,
+    showOfferCard,
+    setShowOfferCard,
     userProfile,
     setUserProfile,
-    user, setUser,
+    user,
+    setUser,
     pendingRequests,
     setPendingRequests,
     pendingRequest,
@@ -52,18 +56,28 @@ function App() {
     setMyRequests,
     myRequest,
     setMyRequest,
-    filterRequests, setFilterRequests,
-    myOffer, setMyOffer,
+    filterRequests,
+    setFilterRequests,
+    myOffer,
+    setMyOffer,
     title,
     setTitle,
     description,
     setDescription,
-    acceptedRequests, setAcceptedRequests,
-    acceptedOffers, setAcceptedOffers,
-    upcomingSessions, setUpcomingSessions,
-    showDateTime, setShowDateTime,
-    dateTimeObj, setDateTimeObj,
-    completedRequests, setCompletedRequests
+    acceptedRequests,
+    setAcceptedRequests,
+    acceptedOffers,
+    setAcceptedOffers,
+    upcomingSessions,
+    setUpcomingSessions,
+    showDateTime,
+    setShowDateTime,
+    dateTimeObj,
+    setDateTimeObj,
+    completedRequests,
+    setCompletedRequests,
+    users,
+    setUsers,
   };
 
   return (
@@ -74,17 +88,18 @@ function App() {
           <Route path={"/login"} element={<Login />} />
           <Route path={"/register"} element={<Register />} />
           <Route path={"/dashboard"} element={<Dashboard />}>
-            <Route path="/dashboard/home" element={<HelpForm />} />
-            <Route path="upcoming_sessions" element = {<UpcomingSessions/>}/>
+            <Route path="" element={<Home />} />
+            <Route path="post" element={<HelpForm />} />
+            <Route path="upcoming_sessions" element={<UpcomingSessions />} />
             <Route path="accepted_requests" element={<AcceptedRequests />} />
             <Route path="accepted_offers" element={<AcceptedOffers />} />
             <Route path="completed_requests" element={<CompletedRequests />} />
           </Route>
-          <Route path="/update_profile" element={<ProfileUpdate/>}/>
-          <Route path="/show_profile/:userId" element={<ShowProfile />}/>
-          <Route path="/user/chat/:requestId" element={<Chat />}/>
-          <Route path="/user/video_call/:requestId" element={<VideoCall />}/>
-          <Route path="/feedback_form/:requestId" element={<FeedbackForm />}/>
+          <Route path="/update_profile" element={<ProfileUpdate />} />
+          <Route path="/show_profile/:userId" element={<ShowProfile />} />
+          <Route path="/user/chat/:requestId" element={<Chat />} />
+          <Route path="/user/video_call/:requestId" element={<VideoCall />} />
+          <Route path="/feedback_form/:requestId" element={<FeedbackForm />} />
         </Routes>
       </MyContext.Provider>
     </>

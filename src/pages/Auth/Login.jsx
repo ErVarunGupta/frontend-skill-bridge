@@ -26,14 +26,15 @@ function Login() {
       });
 
       const data = await response.json();
-      // console.log(data);
+      console.log(data);
 
       const { message, success, token, username } = data;
       // console.log(token)
       if (success) {
         alert("Loggined Successfully!");
         localStorage.setItem('token', token)
-        localStorage.setItem('username',username )
+        // localStorage.setItem('username',username )
+        localStorage.setItem('profilePicture', data.user.profilePicture);
         setTimeout(()=>{
             navigate("/dashboard")
         }, 1000)

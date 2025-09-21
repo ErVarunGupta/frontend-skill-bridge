@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 function AcceptedRequests() {
   const navigate = useNavigate();
   const { setAcceptedRequests } = useContext(MyContext);
-  const { acceptedRequests } = useMyAcceptedReqeusts();
+  const { acceptedRequests, loading } = useMyAcceptedReqeusts();
 
   useEffect(() => {
     setAcceptedRequests(acceptedRequests);
@@ -19,10 +19,11 @@ function AcceptedRequests() {
   }, [acceptedRequests]);
   return (
     <div className="offers_wrapper_container">
-      {acceptedRequests.length === 0 && (
+      {loading ? (
+        <div className="loading">Loading...</div>
+      ) : acceptedRequests.length === 0 ? (
         <h2 style={{ marginTop: "30%" }}>Accepted Requests Not Found!</h2>
-      )}
-      {acceptedRequests.length > 0 && (
+      ) : (
         <>
           <p style={{ fontSize: "1.3rem", fontWeight: "600" }}>
             Accepted Requests

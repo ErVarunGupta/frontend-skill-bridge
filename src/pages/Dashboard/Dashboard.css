@@ -1,6 +1,6 @@
-/* body{
-    overflow: hidden;
-} */
+body{
+    width: 100%;
+}
 
 .dashboard-container{
     height: 100vh;
@@ -8,7 +8,8 @@
     background-color: #f4f2ee;
     padding-inline: 3rem;
     display: flex;
-    /* margin-top: 4rem; */
+    margin-top: 4rem;
+    width: 100%;
 }
 
 .left_dashboard_container{
@@ -125,6 +126,8 @@
     padding: 1rem;
     padding-bottom: 5rem;
     /* position: relative; */
+    overflow-y: auto;
+    scrollbar-width: none;
 }
 .HelpForm{
     width: 100%;

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function AcceptedOffers() {
   const { setAcceptedOffers } = useContext(MyContext);
-  const { acceptedOffers } = useMyAcceptedOffers();
+  const { acceptedOffers, loading } = useMyAcceptedOffers();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,10 +17,11 @@ function AcceptedOffers() {
   return (
     <>
       <div className="offers_wrapper_container">
-        {acceptedOffers.length === 0 && (
+        {loading ? (
+          <div className="loading">Loading...</div>
+        ) : acceptedOffers.length === 0 ? (
           <h2 style={{ marginTop: "30%" }}>Accepted Offers Not Found!</h2>
-        )}
-        {acceptedOffers.length > 0 && (
+        ) : (
           <>
             <p style={{ fontSize: "1.3rem", fontWeight: "600" }}>
               Accepted Offers

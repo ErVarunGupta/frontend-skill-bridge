@@ -7,16 +7,17 @@ import { jwtDecode } from "jwt-decode";
 
 function UpcomingSessions() {
   const navigate = useNavigate();
-  const { upcomingSessions } = useMyUpcomingSession();
+  const { upcomingSessions, loading } = useMyUpcomingSession();
 
   const userId = jwtDecode(localStorage.getItem("token")).id;
 
   return (
     <div className="offers_wrapper_container">
-      {upcomingSessions.length === 0 && (
+      {loading ? (
+        <div className="loading">Loading...</div>
+      ) : upcomingSessions.length === 0 ? (
         <h2 style={{ marginTop: "30%" }}>Upcoming Sessions Not Found!</h2>
-      )}
-      {upcomingSessions.length > 0 && (
+      ) : (
         <>
           <p style={{ fontSize: "1.3rem", fontWeight: "600" }}>
             Upcoming Sessions
@@ -55,7 +56,7 @@ function UpcomingSessions() {
                     </div>
                     <button
                       onClick={() => {
-                        navigate(`/show_profile/${request?.helperId._id}`)
+                        navigate(`/show_profile/${request?.helperId._id}`);
                       }}
                     >
                       View Profile
@@ -98,9 +99,10 @@ function UpcomingSessions() {
                       >
                         Chat
                       </button>
-                      <button style={{ background: "blue", color: "#fff" }}
-                        onClick={()=>{
-                          navigate(`/user/video_call/${request?._id}`)
+                      <button
+                        style={{ background: "blue", color: "#fff" }}
+                        onClick={() => {
+                          navigate(`/user/video_call/${request?._id}`);
                         }}
                       >
                         Join

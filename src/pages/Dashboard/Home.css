@@ -1,0 +1,91 @@
+
+
+
+.home-container {
+    padding: 1rem;
+    font-family: Arial, sans-serif;
+    background-color: transparent;
+    width: 100%;
+}
+
+.search-field {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.search-field input {
+    padding: 1rem;
+    width: 100%;
+    border-radius: 1rem;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+}
+
+.users-field h2 {
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.user-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 23rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+}
+
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.user-card h3 {
+    margin: 5px 0;
+    font-size: 20px;
+    color: #222;
+}
+
+.username {
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.email {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.bio {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.rating {
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}

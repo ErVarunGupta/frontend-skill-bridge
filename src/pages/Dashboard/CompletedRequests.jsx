@@ -8,17 +8,18 @@ import { jwtDecode } from "jwt-decode";
 function CompletedRequests() {
   const navigate = useNavigate();
 
-  const { completedRequests } = useCompletedRequests();
+  const { completedRequests, loading } = useCompletedRequests();
   //   console.log(completedRequests);
 
   const userId = jwtDecode(localStorage.getItem("token")).id;
 
   return (
     <div className="offers_wrapper_container">
-      {completedRequests.length == 0 && (
+      {loading ? (
+        <div className="loading">Loading...</div>
+      ) : completedRequests.length == 0 ? (
         <h2 style={{ marginTop: "30%" }}>Completed Requests Not Found!</h2>
-      )}{" "}
-      {completedRequests.length > 0 && (
+      ) : (
         <>
           <p style={{ fontSize: "1.3rem", fontWeight: "600" }}>
             Upcoming Sessions
